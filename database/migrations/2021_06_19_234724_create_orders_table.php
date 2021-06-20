@@ -19,6 +19,9 @@ class CreateOrdersTable extends Migration
             $table->integer('total');
             $table->string('status')->default(Order::STATUS_PENDING);
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('invoice_id')
+                ->nullable()
+                ->constrained();
             $table->timestamps();
         });
     }

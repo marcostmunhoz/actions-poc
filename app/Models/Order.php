@@ -21,6 +21,7 @@ class Order extends Model
         'status',
         'status',
         'user_id',
+        'invoice_id',
     ];
 
     /**
@@ -39,6 +40,14 @@ class Order extends Model
         return $this
             ->belongsToMany(Product::class)
             ->withPivot('quantity');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
     }
 
     /**
