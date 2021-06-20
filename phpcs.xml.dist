@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Standard">
+
+	<!-- Use UTF-8 -->
+	<arg name="encoding" value="utf-8"/>
+
+	<file>./app</file>
+	<file>./resources/js</file>
+	<file>./resources/sass</file>
+	<file>./resources/views</file>
+
+	<!-- There should not be any code in the bundle Resources directory. -->
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/public/*</exclude-pattern>
+	<exclude-pattern>*/resources/*</exclude-pattern>
+	<exclude-pattern>*/storage/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/_ide_helper.php</exclude-pattern>
+    <exclude-pattern>*/_ide_helper_models.php</exclude-pattern>
+    <exclude-pattern>*/.phpstorm.meta.php</exclude-pattern>
+
+	<!-- Symfony follows the standards defined in the PSR-0, PSR-1 and PSR-2 documents. -->
+
+	<!-- Include the whole PSR-1 standard -->
+	<rule ref="PSR1"/>
+
+	<!-- Include the whole PSR-2 standard -->
+	<rule ref="PSR2"/>
+
+	<rule ref="Symfony">
+		<!-- Desabilita o alerta para a ausência de licença no inicio de uma classe -->
+		<exclude name="Symfony.Commenting.License.Warning"/>
+		<!-- Permite o uso de return e dentro de if...else -->
+		<exclude name="Symfony.Formatting.ReturnOrThrow.Invalid"/>
+		<!-- Desativado para evitar alertas/erros ao utilizar os accessors do Laravel -->
+		<exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps"/>
+        <!-- Permite usar propriedades snake case (usadas em DTOs) -->
+        <exclude name="Zend.NamingConventions.ValidVariableName.MemberVarNotCamelCaps"/>
+		<!-- Permite quebra de linha na declaração de funções, onde o número de parâmetros é muito grande -->
+		<exclude name="Symfony.Functions.Arguments.Invalid"/>
+        <!-- Remove obrigatoriedade nos comentários de classes. -->
+        <exclude name="Symfony.Commenting.ClassComment.Missing"/>
+        <!-- Permite adicionar comentários #region -->
+        <exclude name="PEAR.Commenting.InlineComment.WrongStyle"/>
+	</rule>
+</ruleset>
