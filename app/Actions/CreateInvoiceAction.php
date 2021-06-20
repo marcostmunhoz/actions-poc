@@ -32,10 +32,12 @@ class CreateInvoiceAction
             ->gateway
             ->createInvoice($amount);
 
-        return Invoice::create([
+        $invoice = Invoice::create([
             'provider_id' => $gatewayInvoice->getIdentifier(),
             'amount' => $gatewayInvoice->getAmount(),
             'user_id' => $user->id,
         ]);
+
+        return $invoice->fresh();
     }
 }

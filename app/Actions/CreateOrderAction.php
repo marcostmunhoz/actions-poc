@@ -1,8 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Actions;
 
-use App\Actions\CheckProductStockAction;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;

@@ -19,7 +19,6 @@ class Order extends Model
     protected $fillable = [
         'total',
         'status',
-        'status',
         'user_id',
         'invoice_id',
     ];
@@ -74,7 +73,7 @@ class Order extends Model
         parent::boot();
 
         static::creating(function (self $model) {
-            $model->uuid = Str::uuid();
+            $model->id = Str::uuid();
         });
     }
 }

@@ -59,6 +59,9 @@ class PayOrderAction
             return $order;
         } catch (Exception $e) {
             $order->update(['status' => Order::STATUS_CANCELED]);
+            foreach ($order->products as $product) {
+                $product->increment('stock', $product->pivot->quantity);
+            }
 
             throw $e;
         }

@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -13,7 +17,6 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
     ];
 
     /**
@@ -35,7 +38,25 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
         });
+    }
+
+    /**
+     * @param Request   $request
+     * @param Throwable $e
+     *
+     * @return Response
+     *
+     * @throws BindingResolutionException
+     * @throws Throwable
+     */
+    public function render($request, Throwable $e)
+    {
+        if ($request->expectsJson() && $e instanceof HttpException) {
+            return response()
+                ->json(['message' => $e->getMessage()], $e->getStatusCode());
+        }
+
+        return parent::render($request, $e);
     }
 }

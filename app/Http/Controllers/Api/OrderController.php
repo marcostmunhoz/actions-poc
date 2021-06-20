@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\CreateOrderAction;
 use App\Actions\PayOrderAction;
-use App\CreateOrderAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\PayRequest;
 use App\Http\Requests\Order\StoreRequest;
@@ -22,9 +22,11 @@ class OrderController extends Controller
     {
         $orders = Order
             ::with('products')
+            ->where('user_id', auth()->id())
             ->get();
 
-        return $orders;
+        return response()
+            ->json($orders);
     }
 
     /**
@@ -34,7 +36,8 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return $order->load('products');
+        return response()
+            ->json($order->load('products'));
     }
 
     /**
@@ -58,7 +61,8 @@ class OrderController extends Controller
             abort(400, $e->getMessage());
         }
 
-        return $order;
+        return response()
+            ->json($order, 201);
     }
 
     /**
@@ -83,6 +87,7 @@ class OrderController extends Controller
             abort(400, $e->getMessage());
         }
 
-        return $order;
+        return response()
+            ->json($order);
     }
 }
